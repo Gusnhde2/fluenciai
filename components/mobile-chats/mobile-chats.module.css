@@ -1,6 +1,6 @@
-.sidebar {
-  min-width: 25rem;
+.mobileSidebar {
   height: 100vh;
+  overflow-y: scroll;
   position: fixed;
   top: 0;
   left: 0;
@@ -8,14 +8,37 @@
   border-right: 1px solid #303030;
   background: #121212;
 
-  @media screen and (max-width: 768px) {
-    display: none;
-  }
-
   @media screen and (prefers-color-scheme: light) {
     border-right: 1px solid rgba(94, 94, 94, 0.2);
     background: #fff;
   }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideOut {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-100%);
+  }
+}
+
+.open {
+  display: block;
+  animation: slideIn 0.3s ease-in-out;
+}
+.closed {
+  animation: slideOut 0.3s ease-in-out;
+  transform: translate(-100%);
 }
 
 .sidebarHeader {
@@ -52,5 +75,5 @@
 .conversations {
   height: 82vh;
   overflow-y: scroll;
-  padding-bottom: 3rem;
+  padding-bottom: 2rem;
 }

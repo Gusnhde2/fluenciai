@@ -2,18 +2,22 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
+import Searchbar from "@/components/searchbar/searchbar";
+import ChatCard from "@/components/sidebar/chat-card/chat-card";
 import MessageIcon from "@/public/message.svg";
 
-import Searchbar from "../searchbar/searchbar";
-import ChatCard from "./chat-card/chat-card";
-import styles from "./sidebar.module.css";
+import styles from "./mobile-chats.module.css";
 
-export default function Sidebar({
+export default function MobileChats({
   data,
   selectedChat,
+  closeMobileChats,
+  isOpen,
 }: {
   data?: Array<any>;
   selectedChat?: (index: number) => void;
+  closeMobileChats?: () => void;
+  isOpen?: boolean;
 }) {
   const [activeChat, setActiveChat] = useState(data?.[0]?.id);
 
@@ -22,7 +26,11 @@ export default function Sidebar({
   }, [activeChat, selectedChat]);
 
   return (
-    <div className={styles.sidebar}>
+    <div
+      className={`${styles.mobileSidebar} ${isOpen && styles.open} ${
+        !isOpen && styles.closed
+      }`}
+    >
       <div className={styles.sidebarContent}>
         <div className={styles.sidebarHeader}>
           <Image src="/logo.svg" alt="FluenciAI Logo" width={50} height={50} />
@@ -36,11 +44,15 @@ export default function Sidebar({
         <div className={styles.conversations}>
           {data?.map((data: any, index) => (
             <ChatCard
+              id={data.id}
               key={index}
               data={data}
               isActive={data.id === activeChat || activeChat === index}
               index={index}
-              onClick={() => setActiveChat(data?.id)}
+              onClick={() => {
+                setActiveChat(data?.id);
+                closeMobileChats && closeMobileChats();
+              }}
             />
           ))}
         </div>

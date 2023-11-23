@@ -1,0 +1,115 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 1rem 3rem 1rem 27rem;
+  top: 0;
+  width: 100%;
+  height: 5rem;
+
+  border-bottom: 1px solid #303030;
+  background: #121212;
+
+  @media screen and (prefers-color-scheme: light) {
+    border-bottom: 1px solid #dfdfdf;
+    background: #fff;
+  }
+
+  @media screen and (max-width: 768px) {
+    padding: 1rem 1.5rem 1rem 1.5rem;
+  }
+}
+
+.conversationDetails {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.conversationDetails > .image {
+  position: relative;
+}
+
+.conversationDetails > .image::after {
+  content: "";
+  position: absolute;
+  width: 0.875rem;
+  height: 0.875rem;
+
+  background: #00a3ff;
+  border-radius: 50%;
+  bottom: 0;
+  right: 0;
+}
+.username {
+  display: flex;
+  flex-direction: column;
+}
+
+.username > h4 {
+  color: #f0f0f0;
+  font-size: 1.25rem;
+  font-weight: 500;
+
+  @media screen and (prefers-color-scheme: light) {
+    color: #515151;
+  }
+}
+
+.username > span {
+  color: #00a3ff;
+  font-size: 0.875rem;
+  font-weight: 400;
+}
+.menu {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.menu > button:nth-child(1) {
+  @media screen and (min-width: 950px) {
+    display: none;
+  }
+}
+
+.menu > button {
+  padding: 0.2rem;
+  border-radius: 0.5rem;
+}
+
+.menu > button:hover {
+  background-color: #dfdfdf;
+  color: #000;
+}
+
+.menuContent {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 15rem;
+  transform: translate(0rem, 11rem);
+  background: #121212;
+
+  @media screen and (prefers-color-scheme: light) {
+    background: #fff;
+  }
+}
+
+.menuContent > button {
+  background-color: transparent;
+  border: none;
+  padding: 1rem 2rem;
+  text-align: left;
+
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.menuContent > button:hover {
+  background-color: #00a3ff;
+}

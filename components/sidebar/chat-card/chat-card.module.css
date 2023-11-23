@@ -9,13 +9,16 @@
 
   cursor: pointer;
   transition: all 0.2s ease-in-out;
+
+  @media screen and (prefers-color-scheme: light) {
+    background: #f0f0f0;
+  }
 }
 
 .card:hover {
   background: #303030;
-
   @media screen and (prefers-color-scheme: light) {
-    background: #f0f0f0;
+    background: #dfdfdf;
   }
 }
 
@@ -60,7 +63,6 @@
 }
 
 .cardContent > div > h4 {
-  color: #f0f0f0;
   font-size: 1.125rem;
   font-style: normal;
   font-weight: 500;
@@ -68,13 +70,11 @@
 }
 
 .cardContent > div > span {
-  color: #e0e0e0;
   font-size: 0.875rem;
   font-weight: 400;
 }
 
 .cardContent > div > p {
-  color: #e0e0e0;
   font-size: 0.875rem;
   font-weight: 400;
 }

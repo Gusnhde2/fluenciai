@@ -18,6 +18,7 @@ interface ChatCardProps {
   isActive?: boolean;
   data?: ChatCardData;
   index?: number;
+  id?: number;
 }
 
 export default function ChatCard({
@@ -25,6 +26,7 @@ export default function ChatCard({
   isActive,
   data,
   index,
+  id,
 }: ChatCardProps) {
   return (
     <button
