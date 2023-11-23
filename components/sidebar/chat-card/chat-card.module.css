@@ -1,0 +1,80 @@
+.card {
+  border: none;
+  display: flex;
+  align-items: center;
+  width: 100%;
+
+  padding: 1rem 1.5rem 1rem 1.5rem;
+  background: #121212;
+
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.card:hover {
+  background: #303030;
+
+  @media screen and (prefers-color-scheme: light) {
+    background: #f0f0f0;
+  }
+}
+
+.active {
+  border-top: 1px solid rgba(0, 163, 255, 0.21);
+  border-bottom: 1px solid rgba(0, 163, 255, 0.21);
+  background: rgba(0, 163, 255, 0.31);
+}
+.active:hover {
+  background: rgba(0, 163, 255, 0.31);
+}
+
+.contentWraper {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+.image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.cardContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.cardContent > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.cardContent > div > h4 {
+  color: #f0f0f0;
+  font-size: 1.125rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.cardContent > div > span {
+  color: #e0e0e0;
+  font-size: 0.875rem;
+  font-weight: 400;
+}
+
+.cardContent > div > p {
+  color: #e0e0e0;
+  font-size: 0.875rem;
+  font-weight: 400;
+}

@@ -1,9 +1,11 @@
 "use client";
 import Image from "next/image";
 import styles from "./page.module.css";
-import Button from "@/components/button";
+import Button from "@/components/button/button";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+  const router = useRouter();
   return (
     <>
       <div className={styles.container}>
@@ -24,7 +26,7 @@ export default function Home() {
         <Button
           text="Let's chat! →"
           onClick={() => {
-            console.log("clicked");
+            router.push("/chat");
           }}
         />
       </div>

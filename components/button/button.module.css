@@ -1,0 +1,27 @@
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 1.5rem;
+
+  border: none;
+  border-radius: 0.75rem;
+  background: #00a3ff;
+
+  color: #fff;
+  font-size: 1.25rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.button:hover {
+  background: #00a2ffbe;
+}
+
+.add {
+  width: 2.875rem;
+  height: 2.875rem;
+  flex-shrink: 0;
+  padding: 0.6rem;
+}
