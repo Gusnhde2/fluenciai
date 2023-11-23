@@ -152,15 +152,12 @@ export default function Layout(props: any) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [width, setWidth] = useState<number | null>(null);
 
-  console.log(mobileOpen);
-
   useEffect(() => {
     setWidth(window.screen.width);
   }, []);
 
-  // const width = window.screen.width;
-
   const selectChat = (id: number) => {
+    console.log(id);
     setActiveChatData(mockData.filter((data) => data.id === id)[0]);
   };
 
@@ -172,7 +169,6 @@ export default function Layout(props: any) {
     setMobileOpen(false);
   };
 
-  // const width = window?.screen.width;
   return (
     <>
       <Navbar data={activeChatData} toggleMobileChat={toggleMobileChats} />
@@ -184,8 +180,10 @@ export default function Layout(props: any) {
           isOpen={mobileOpen}
         />
       )}
+      {width && width >= 768 && (
+        <Sidebar data={mockData} selectedChat={selectChat} />
+      )}
 
-      <Sidebar data={mockData} selectedChat={selectChat} />
       {props.children}
     </>
   );
