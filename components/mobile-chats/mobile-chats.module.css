@@ -4,6 +4,7 @@
   position: fixed;
   top: 0;
   left: 0;
+  transform: translateY(-100%);
 
   border-right: 1px solid #303030;
   background: #121212;
@@ -34,11 +35,12 @@
 
 .open {
   display: block;
+  transform: translateY(0);
   animation: slideIn 0.3s ease-in-out;
 }
 .closed {
+  transform: translateY(-100%);
   animation: slideOut 0.3s ease-in-out;
-  transform: translate(-100%);
 }
 
 .sidebarHeader {

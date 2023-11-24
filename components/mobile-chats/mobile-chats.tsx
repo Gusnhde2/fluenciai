@@ -21,6 +21,15 @@ export default function MobileChats({
 }) {
   const [activeChat, setActiveChat] = useState(data?.[0]?.id);
 
+  let initalRender = true;
+
+  useEffect(() => {
+    if (initalRender) {
+      initalRender = false;
+      return;
+    }
+  }, []);
+
   useEffect(() => {
     selectedChat && selectedChat(activeChat);
   }, [activeChat, selectedChat]);
@@ -28,7 +37,7 @@ export default function MobileChats({
   return (
     <div
       className={`${styles.mobileSidebar} ${isOpen && styles.open} ${
-        !isOpen && styles.closed
+        !initalRender && !isOpen && styles.closed
       }`}
     >
       <div className={styles.sidebarContent}>
