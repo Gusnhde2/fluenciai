@@ -47,7 +47,7 @@ export default function Layout(props: any) {
   const headersList = headers();
   const platform = headersList.get("sec-ch-ua-mobile");
   const os = headersList.get("sec-ch-ua-platform");
-  const isMobile = platform === null && os !== "Windows";
+  const isMobile = os !== "Windows";
 
   return (
     <ChatProvider>
