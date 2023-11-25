@@ -44,16 +44,10 @@ const mockData = [
 ];
 
 export default function Layout(props: any) {
-  const headersList = headers();
-  const platform = headersList.get("sec-ch-ua-mobile");
-  const os = headersList.get("sec-ch-ua-platform");
-  const isMobile = os !== "Windows";
-
+  props.params.data = mockData;
   return (
     <ChatProvider>
       <Navbar data={mockData} />
-      {isMobile && <MobileChats data={mockData} />}
-      {!isMobile && <Sidebar data={mockData} />}
       {props.children}
     </ChatProvider>
   );
