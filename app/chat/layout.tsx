@@ -45,8 +45,8 @@ const mockData = [
 
 export default function Layout(props: any) {
   const headersList = headers();
-  const platform = headersList.get("sec-ch-ua-platform");
-  const isMobile = platform === "iOS" || platform === "Android";
+  const platform = headersList.get("sec-ch-ua-mobile");
+  const isMobile = platform === null;
 
   return (
     <ChatProvider>
