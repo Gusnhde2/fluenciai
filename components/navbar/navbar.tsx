@@ -1,20 +1,24 @@
 "use client";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
+import { useChatContext } from "@/context/ChatContext";
+import { initialChatState } from "@/context/chatReducer";
 import MenuIcon from "@/public/menu.svg";
 import ChatIcon from "@/public/message.svg";
 
 import styles from "./navbar.module.css";
 
-export default function Navbar({
-  data,
-  toggleMobileChat,
-}: {
-  data?: any;
-  toggleMobileChat?: () => void;
-}) {
+export default function Navbar({ data }: { data?: any }) {
   const [openMenu, setOpenMenu] = useState(false);
+  const [activeChat, setActiveChat] = useState(data?.[0]);
+  const chatContext = useChatContext();
+  const { state = initialChatState, dispatch = () => {} } = chatContext || {};
+
+  useEffect(() => {
+    const chat = data.filter((data: any) => data.id === state?.chatId).slice(0);
+    setActiveChat(chat?.[0]);
+  }, [state]);
 
   const openMenuHandler = () => {
     setOpenMenu(!openMenu);
@@ -26,12 +30,16 @@ export default function Navbar({
           <Image src="/logo.svg" alt="FluenciAI Logo" width={60} height={60} />
         </div>
         <div className={styles.username}>
-          <h4>{data?.name}</h4>
+          <h4>{activeChat?.name}</h4>
           <span>Online</span>
         </div>
       </div>
       <div className={styles.menu}>
-        <button onClick={toggleMobileChat}>
+        <button
+          onClick={() =>
+            dispatch({ type: "MOBILE_CHAT_TOGGLE", payload: true })
+          }
+        >
           <Image src={ChatIcon} alt="your chats" width={30} height={30} />
         </button>
         <button onClick={openMenuHandler}>

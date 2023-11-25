@@ -7,19 +7,17 @@ import MessageIcon from "@/public/message.svg";
 import Searchbar from "../searchbar/searchbar";
 import ChatCard from "./chat-card/chat-card";
 import styles from "./sidebar.module.css";
+import { useChatContext } from "@/context/ChatContext";
 
-export default function Sidebar({
-  data,
-  selectedChat,
-}: {
-  data?: Array<any>;
-  selectedChat?: (index: number) => void;
-}) {
-  const [activeChat, setActiveChat] = useState(data?.[0]?.id);
+export default function Sidebar({ data }: { data?: Array<any> }) {
+  const chatContext = useChatContext();
+
+  const { state, dispatch } = chatContext || {};
 
   useEffect(() => {
-    selectedChat && selectedChat(activeChat);
-  }, [activeChat, selectedChat]);
+    console.log(data?.[0].id);
+    dispatch && dispatch({ type: "SET_CHAT_ID", payload: data?.[0].id });
+  }, []);
 
   return (
     <div className={styles.sidebar}>
@@ -38,9 +36,11 @@ export default function Sidebar({
             <ChatCard
               key={index}
               data={data}
-              isActive={data.id === activeChat || activeChat === index}
+              isActive={data.id === state?.chatId}
               index={index}
-              onClick={() => setActiveChat(data?.id)}
+              onClick={() =>
+                dispatch && dispatch({ type: "SET_CHAT_ID", payload: data?.id })
+              }
             />
           ))}
         </div>

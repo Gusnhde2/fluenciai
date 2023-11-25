@@ -4,41 +4,31 @@ import { useEffect, useState } from "react";
 
 import Searchbar from "@/components/searchbar/searchbar";
 import ChatCard from "@/components/sidebar/chat-card/chat-card";
+import { useChatContext } from "@/context/ChatContext";
+import { initialChatState } from "@/context/chatReducer";
 import MessageIcon from "@/public/message.svg";
 
 import styles from "./mobile-chats.module.css";
 
-export default function MobileChats({
-  data,
-  selectedChat,
-  closeMobileChats,
-  isOpen,
-}: {
-  data?: Array<any>;
-  selectedChat?: (index: number) => void;
-  closeMobileChats?: () => void;
-  isOpen?: boolean;
-}) {
-  const [activeChat, setActiveChat] = useState(data?.[0]?.id);
+export default function MobileChats({ data }: { data?: Array<any> }) {
+  const context = useChatContext();
+  const { state = initialChatState, dispatch = () => {} } = context || {};
 
   let initalRender = true;
 
   useEffect(() => {
     if (initalRender) {
+      dispatch({ type: "SET_CHAT_ID", payload: data?.[0].id });
       initalRender = false;
       return;
     }
   }, []);
 
-  useEffect(() => {
-    selectedChat && selectedChat(activeChat);
-  }, [activeChat, selectedChat]);
-
   return (
     <div
-      className={`${styles.mobileSidebar} ${isOpen && styles.open} ${
-        !initalRender && !isOpen && styles.closed
-      }`}
+      className={`${styles.mobileSidebar} ${
+        state?.mobileChatOpen && styles.open
+      } ${!initalRender && !state?.mobileChatOpen && styles.closed}`}
     >
       <div className={styles.sidebarContent}>
         <div className={styles.sidebarHeader}>
@@ -56,11 +46,11 @@ export default function MobileChats({
               id={data.id}
               key={index}
               data={data}
-              isActive={data.id === activeChat || activeChat === index}
+              isActive={data.id === state?.chatId}
               index={index}
               onClick={() => {
-                setActiveChat(data?.id);
-                closeMobileChats && closeMobileChats();
+                dispatch({ type: "SET_CHAT_ID", payload: data?.id });
+                dispatch({ type: "MOBILE_CHAT_TOGGLE", payload: false });
               }}
             />
           ))}

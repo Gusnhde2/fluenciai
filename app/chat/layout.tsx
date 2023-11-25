@@ -1,8 +1,9 @@
-"use client";
-import { useState, useEffect, createContext } from "react";
+import { userAgent, userAgentFromString } from "next/server";
+
+import MobileChats from "@/components/mobile-chats/mobile-chats";
 import Navbar from "@/components/navbar/navbar";
 import Sidebar from "@/components/sidebar/sidebar";
-import MobileChats from "@/components/mobile-chats/mobile-chats";
+import { ChatProvider } from "@/context/ChatContext";
 
 const mockData = [
   {
@@ -42,48 +43,15 @@ const mockData = [
   },
 ];
 
-export const ChatContext = createContext(mockData[0]);
-
 export default function Layout(props: any) {
-  const [activeChatData, setActiveChatData] = useState(mockData[0]);
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const [width, setWidth] = useState<number | null>(null);
-
-  useEffect(() => {
-    setWidth(window.screen.width);
-  }, []);
-
-  const selectChat = (id: number) => {
-    console.log(id);
-    setActiveChatData(mockData.filter((data) => data.id === id)[0]);
-  };
-
-  const toggleMobileChats = () => {
-    setMobileOpen((prev) => !prev);
-  };
-
-  const closeMobileChats = () => {
-    setMobileOpen(false);
-  };
-
-  props.params.chatId = activeChatData.id;
+  const isMobile = /Mobile/.test(userAgent?.toString() ?? "");
 
   return (
-    <ChatContext.Provider value={activeChatData}>
-      <Navbar data={activeChatData} toggleMobileChat={toggleMobileChats} />
-      {width && width < 768 && (
-        <MobileChats
-          data={mockData}
-          selectedChat={selectChat}
-          closeMobileChats={closeMobileChats}
-          isOpen={mobileOpen}
-        />
-      )}
-      {width && width >= 768 && (
-        <Sidebar data={mockData} selectedChat={selectChat} />
-      )}
-
+    <ChatProvider>
+      <Navbar data={mockData} />
+      {isMobile && <MobileChats data={mockData} />}
+      {!isMobile && <Sidebar data={mockData} />}
       {props.children}
-    </ChatContext.Provider>
+    </ChatProvider>
   );
 }

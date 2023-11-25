@@ -1,19 +1,22 @@
 "use client";
+import { useChatContext } from "@/context/ChatContext";
 import React, { useContext } from "react";
-import { ChatContext } from "./layout";
 
 export default function Chat(props: any) {
-  const data = useContext(ChatContext);
+  const context = useChatContext();
+
+  const { state } = context || {};
+
   return (
     <div
       style={{
-        marginLeft: "3rem",
+        marginLeft: "30rem",
         marginTop: "13rem",
         height: "calc(100vh - 5rem)",
       }}
     >
       <h1>Chat</h1>
-      <p>{data.name}</p>
+      <p>{state?.chatId}</p>
     </div>
   );
 }
