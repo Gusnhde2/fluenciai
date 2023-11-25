@@ -1,4 +1,4 @@
-import { userAgent, userAgentFromString } from "next/server";
+import { headers } from "next/headers";
 
 import MobileChats from "@/components/mobile-chats/mobile-chats";
 import Navbar from "@/components/navbar/navbar";
@@ -44,7 +44,9 @@ const mockData = [
 ];
 
 export default function Layout(props: any) {
-  const isMobile = /Mobile/.test(userAgent?.toString() ?? "");
+  const headersList = headers();
+  const platform = headersList.get("sec-ch-ua-platform");
+  const isMobile = platform === "iOS" || platform === "Android";
 
   return (
     <ChatProvider>
