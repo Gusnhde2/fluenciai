@@ -11,6 +11,7 @@ import { chatReducer, initialChatState } from "./chatReducer";
 interface ChatState {
   chatId: string | null;
   mobileChatOpen: boolean;
+  openModal: boolean;
 }
 
 interface ChatContextType {

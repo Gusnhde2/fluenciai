@@ -1,11 +1,13 @@
 interface ChatState {
   chatId: string | null;
   mobileChatOpen: boolean;
+  openModal: boolean;
 }
 
 export const initialChatState = {
   chatId: null,
   mobileChatOpen: false,
+  openModal: false,
 };
 
 export const chatReducer = (state: ChatState, action: any) => {
@@ -19,6 +21,11 @@ export const chatReducer = (state: ChatState, action: any) => {
       return {
         ...state,
         mobileChatOpen: !state.mobileChatOpen,
+      };
+    case "TOGGLE_MODAL":
+      return {
+        ...state,
+        openModal: !state.openModal,
       };
     default:
       return state;

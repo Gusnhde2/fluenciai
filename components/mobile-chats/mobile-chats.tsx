@@ -35,7 +35,11 @@ export default function MobileChats({ data }: { data?: Array<any> }) {
           <Image src="/logo.svg" alt="FluenciAI Logo" width={50} height={50} />
           <h1 className={styles.sidebarTitle}>Chat buddies</h1>
         </div>
-        <Searchbar />
+        <Searchbar
+          onclick={() => {
+            dispatch({ type: "TOGGLE_MODAL" });
+          }}
+        />
         <div className={styles.subtitle}>
           <Image src={MessageIcon} alt="Message Icon" width={22} height={22} />
           All conversations

@@ -6,6 +6,7 @@ import Message from "@/components/message/message";
 import MobileChats from "@/components/mobile-chats/mobile-chats";
 import Sidebar from "@/components/sidebar/sidebar";
 import { useChatContext } from "@/context/ChatContext";
+import styles from "./chat.module.css";
 
 const messages = [
   {
@@ -14,54 +15,6 @@ const messages = [
     isUserMessage: true,
     profilePic: "",
     userName: "Neki Mali",
-    time: Date.now(),
-  },
-  {
-    id: 2,
-    text: "Hi, how are you? I'm John Doe, your personal assistant. How can I help you today?Hi, how are you? I'm John Doe, your personal assistant. How can I help you today?Hi, how are you? I'm John Doe, your personal assistant. How can I help you today?",
-    isUserMessage: false,
-    profilePic: "",
-    userName: "John Doe",
-    time: Date.now(),
-  },
-  {
-    id: 2,
-    text: "Hi, how are you? I'm John Doe, your personal assistant. How can I help you today?Hi, how are you? I'm John Doe, your personal assistant. How can I help you today?Hi, how are you? I'm John Doe, your personal assistant. How can I help you today?",
-    isUserMessage: false,
-    profilePic: "",
-    userName: "John Doe",
-    time: Date.now(),
-  },
-  {
-    id: 2,
-    text: "Hi, how are you? I'm John Doe, your personal assistant. How can I help you today?Hi, how are you? I'm John Doe, your personal assistant. How can I help you today?Hi, how are you? I'm John Doe, your personal assistant. How can I help you today?",
-    isUserMessage: false,
-    profilePic: "",
-    userName: "John Doe",
-    time: Date.now(),
-  },
-  {
-    id: 2,
-    text: "Hi, how are you? I'm John Doe, your personal assistant. How can I help you today?Hi, how are you? I'm John Doe, your personal assistant. How can I help you today?Hi, how are you? I'm John Doe, your personal assistant. How can I help you today?",
-    isUserMessage: true,
-    profilePic: "",
-    userName: "John Doe",
-    time: Date.now(),
-  },
-  {
-    id: 2,
-    text: "Hi, how are you? I'm John Doe, your personal assistant. How can I help you today?Hi, how are you? I'm John Doe, your personal assistant. How can I help you today?Hi, how are you? I'm John Doe, your personal assistant. How can I help you today?",
-    isUserMessage: false,
-    profilePic: "",
-    userName: "John Doe",
-    time: Date.now(),
-  },
-  {
-    id: 2,
-    text: "Hi, how are you? I'm John Doe, your personal assistant. How can I help you today?Hi, how are you? I'm John Doe, your personal assistant. How can I help you today?Hi, how are you? I'm John Doe, your personal assistant. How can I help you today?",
-    isUserMessage: true,
-    profilePic: "",
-    userName: "John Doe",
     time: Date.now(),
   },
 ];
@@ -75,9 +28,8 @@ export default function Chat(props: any) {
   return (
     <>
       <MessageInput />
-      <MobileChats data={mockData} />
-      <Sidebar data={mockData} />
-      <div style={{ zIndex: "-2" }}>
+
+      <div className={styles.container}>
         {messages.map((message, index) => (
           <Message key={index} messageData={message} />
         ))}

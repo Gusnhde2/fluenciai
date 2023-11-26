@@ -1,10 +1,14 @@
+"use client";
 import { headers } from "next/headers";
 import styles from "./layout.module.css";
+import { useEffect } from "react";
 
 import MobileChats from "@/components/mobile-chats/mobile-chats";
 import Navbar from "@/components/navbar/navbar";
 import Sidebar from "@/components/sidebar/sidebar";
-import { ChatProvider } from "@/context/ChatContext";
+import { ChatProvider, useChatContext } from "@/context/ChatContext";
+import { useSelectedLayoutSegment } from "next/navigation";
+import { initialChatState } from "@/context/chatReducer";
 
 const mockData = [
   {
@@ -44,12 +48,25 @@ const mockData = [
   },
 ];
 
-export default function Layout(props: any) {
-  props.params.data = mockData;
+export default function Layout(props: {
+  params: any;
+  children: React.ReactNode;
+  modal: React.ReactNode;
+}) {
+  const chatContext = useChatContext();
+  const { state } = chatContext || {};
+
+  useEffect(() => {
+    console.log(state);
+  }, [state]);
+
   return (
-    <ChatProvider>
+    <>
       <Navbar data={mockData} />
-      <div className={styles.wrapper}>{props.children}</div>
-    </ChatProvider>
+      <MobileChats data={mockData} />
+      <Sidebar data={mockData} />
+      {state?.openModal && props.modal}
+      {props.children}
+    </>
   );
 }
