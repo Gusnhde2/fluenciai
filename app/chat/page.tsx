@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import MessageInput from "@/components/message-input/message-input";
 import Message from "@/components/message/message";
 import MobileChats from "@/components/mobile-chats/mobile-chats";
@@ -66,12 +67,15 @@ const messages = [
 ];
 
 export default function Chat(props: any) {
+  const [isMobile, setIsMobile] = useState(false);
   const mockData = props.params.data;
   const context = useChatContext();
 
   const { state } = context || {};
 
-  const isMobile = window.innerWidth < 768;
+  useEffect(() => {
+    setIsMobile(document.documentElement.clientWidth < 768);
+  }, []);
 
   return (
     <>
