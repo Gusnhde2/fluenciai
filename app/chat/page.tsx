@@ -67,21 +67,16 @@ const messages = [
 ];
 
 export default function Chat(props: any) {
-  const [isMobile, setIsMobile] = useState(false);
   const mockData = props.params.data;
   const context = useChatContext();
 
   const { state } = context || {};
 
-  useEffect(() => {
-    setIsMobile(document.documentElement.clientWidth < 768);
-  }, []);
-
   return (
     <>
       <MessageInput />
-      {isMobile && <MobileChats data={mockData} />}
-      {!isMobile && <Sidebar data={mockData} />}
+      <MobileChats data={mockData} />
+      <Sidebar data={mockData} />
       <div style={{ zIndex: "-2" }}>
         {messages.map((message, index) => (
           <Message key={index} messageData={message} />
