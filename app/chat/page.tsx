@@ -79,8 +79,8 @@ export default function Chat(props: any) {
       {isMobile && <MobileChats data={mockData} />}
       {!isMobile && <Sidebar data={mockData} />}
       <div style={{ zIndex: "-2" }}>
-        {messages.map((message) => (
-          <Message messageData={message} />
+        {messages.map((message, index) => (
+          <Message key={index} messageData={message} />
         ))}
       </div>
     </>
