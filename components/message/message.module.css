@@ -1,0 +1,97 @@
+.messageWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 2rem;
+}
+
+.userWrapper {
+  justify-content: flex-end;
+}
+
+.messageContainer {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.messageUser {
+  flex-direction: row-reverse;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  max-width: 70%;
+
+  @media screen and (max-width: 768px) {
+    max-width: 100%;
+  }
+}
+
+.userContent {
+  align-items: flex-end;
+}
+
+.image > img {
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  margin-right: 1rem;
+  margin-left: 1rem;
+}
+
+.nameDate {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.nameDate > h3 {
+  font-size: 1.2rem;
+  font-weight: 500;
+  line-height: normal;
+  color: #bcbcbc;
+
+  @media screen and (prefers-color-scheme: light) {
+    color: #303030;
+  }
+}
+
+.nameDate > p {
+  font-size: 0.85rem;
+  font-weight: 500;
+  line-height: normal;
+  color: #bcbcbc;
+
+  @media screen and (prefers-color-scheme: light) {
+    color: #303030;
+  }
+}
+
+.message {
+  display: flex;
+  justify-content: flex-start;
+  max-width: 70%;
+  padding: 1rem 1.5rem;
+  border-radius: 0rem 0.875rem 0.875rem 0.875rem;
+  border: 1px solid #323232;
+  background: #292929;
+
+  @media screen and (prefers-color-scheme: light) {
+    border: 1px solid #e0e0e0;
+    background: #fff;
+  }
+
+  @media screen and (max-width: 768px) {
+    max-width: 95%;
+  }
+}
+
+.userRadius {
+  border-radius: 0.875rem 0rem 0.875rem 0.875rem;
+}

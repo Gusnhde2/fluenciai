@@ -12,7 +12,7 @@
   background: #121212;
 
   @media screen and (max-width: 768px) {
-    position: absolute;
+    position: fixed;
     padding-left: 0;
   }
 

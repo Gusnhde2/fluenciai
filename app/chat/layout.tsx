@@ -1,4 +1,5 @@
 import { headers } from "next/headers";
+import styles from "./layout.module.css";
 
 import MobileChats from "@/components/mobile-chats/mobile-chats";
 import Navbar from "@/components/navbar/navbar";
@@ -48,7 +49,7 @@ export default function Layout(props: any) {
   return (
     <ChatProvider>
       <Navbar data={mockData} />
-      {props.children}
+      <div className={styles.wrapper}>{props.children}</div>
     </ChatProvider>
   );
 }
