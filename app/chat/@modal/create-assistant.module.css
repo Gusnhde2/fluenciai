@@ -1,0 +1,39 @@
+.container {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.container > div > input {
+  width: 100%;
+  padding: 0.7rem;
+  border: 1px solid #000;
+  border-radius: 0.5rem;
+  outline: none;
+  margin-top: 0.5rem;
+
+  @media screen and (prefers-color-scheme: light) {
+    background: #fff;
+    border: 1px solid #bcbcbc;
+  }
+}
+
+.container > div > select {
+  width: 30%;
+  padding: 0.7rem;
+  border: 1px solid #000;
+  border-radius: 0.5rem;
+  outline: none;
+  margin-top: 0.5rem;
+  text-transform: capitalize;
+
+  @media screen and (prefers-color-scheme: light) {
+    background: #fff;
+    border: 1px solid #bcbcbc;
+  }
+}
+
+.container > div > select > option {
+  text-transform: capitalize;
+}

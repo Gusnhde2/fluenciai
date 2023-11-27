@@ -7,6 +7,8 @@ import Modal from "@/components/modal/modal";
 import { useChatContext } from "@/context/ChatContext";
 import { languages } from "./constatnts";
 
+import styles from "./create-assistant.module.css";
+
 export default function CreateAssistant() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
@@ -58,7 +60,10 @@ export default function CreateAssistant() {
 
   return (
     <Modal>
-      <form onSubmit={(event) => event?.preventDefault()}>
+      <form
+        onSubmit={(event) => event?.preventDefault()}
+        className={styles.container}
+      >
         <h3>Create an assistant</h3>
         <p>
           You can create an assistant to help you with your daily tasks. You can
