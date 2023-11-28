@@ -9,9 +9,10 @@ import {
 import { chatReducer, initialChatState } from "./chatReducer";
 
 interface ChatState {
-  chatId: string | null;
+  activeThreadId: string;
   mobileChatOpen: boolean;
   openModal: boolean;
+  errorMessage: string | null;
 }
 
 interface ChatContextType {

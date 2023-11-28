@@ -16,9 +16,9 @@ export default function Sidebar({ data }: { data?: Array<any> }) {
 
   const { state = initialChatState, dispatch = () => {} } = chatContext || {};
 
-  useEffect(() => {
-    dispatch({ type: "SET_CHAT_ID", payload: data?.[0].id });
-  }, []);
+  // useEffect(() => {
+  //   dispatch({ type: "SET_CHAT_ID", payload: data?.[0].id });
+  // }, []);
 
   return (
     <>
@@ -52,7 +52,7 @@ export default function Sidebar({ data }: { data?: Array<any> }) {
               <ChatCard
                 key={index}
                 data={data}
-                isActive={data.id === state?.chatId}
+                // isActive={data.id === state?.chatId}
                 index={index}
                 onClick={() =>
                   dispatch({ type: "SET_CHAT_ID", payload: data?.id })

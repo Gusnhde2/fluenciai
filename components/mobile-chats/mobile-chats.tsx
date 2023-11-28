@@ -16,13 +16,13 @@ export default function MobileChats({ data }: { data?: Array<any> }) {
 
   let initalRender = true;
 
-  useEffect(() => {
-    if (initalRender) {
-      dispatch({ type: "SET_CHAT_ID", payload: data?.[0].id });
-      initalRender = false;
-      return;
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (initalRender) {
+  //     dispatch({ type: "SET_CHAT_ID", payload: data?.[0].id });
+  //     initalRender = false;
+  //     return;
+  //   }
+  // }, []);
 
   return (
     <div
@@ -50,7 +50,7 @@ export default function MobileChats({ data }: { data?: Array<any> }) {
               id={data.id}
               key={index}
               data={data}
-              isActive={data.id === state?.chatId}
+              // isActive={data.id === state?.chatId}
               index={index}
               onClick={() => {
                 dispatch({ type: "SET_CHAT_ID", payload: data?.id });

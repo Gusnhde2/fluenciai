@@ -7,28 +7,37 @@ import styles from "./message.module.css";
 import Logo from "@/public/logo.svg";
 
 interface MessageProps {
-  text: string;
-  isUserMessage: boolean;
-  id: number;
-  profilePic: string;
-  time: number;
-  userName: string;
+  text?: string;
+  role: "user" | "assistant";
+  id?: number;
+  profilePic?: string;
+  created_at?: number;
+  userName?: string;
+  loading?: boolean;
 }
 
 interface Props {
   messageData: MessageProps;
 }
 
-export default function Message({ messageData }: Props) {
+export default function Message({
+  text,
+  role,
+  id,
+  created_at,
+  userName,
+  profilePic,
+  loading,
+}: MessageProps) {
   return (
     <div
       className={`${styles.messageWrapper} ${
-        messageData.isUserMessage && styles.userWrapper
+        role === "user" && styles.userWrapper
       }`}
     >
       <div
         className={`${styles.messageContainer} ${
-          messageData.isUserMessage && styles.messageUser
+          role === "user" && styles.messageUser
         }`}
       >
         <div className={styles.image}>
@@ -36,23 +45,32 @@ export default function Message({ messageData }: Props) {
         </div>
         <div
           className={`${styles.content} ${
-            messageData.isUserMessage && styles.userContent
+            role === "user" && styles.userContent
           }`}
         >
           <div
             className={`${styles.nameDate} ${
-              messageData.isUserMessage && styles.messageUser
+              role === "user" && styles.messageUser
             } `}
           >
-            <h3>{messageData.userName}</h3>
-            <p>{formatDate(messageData.time)}</p>
+            <h3>{userName}</h3>
+            <p>
+              {created_at && formatDate(new Date(created_at * 1000).getTime())}
+            </p>
           </div>
           <div
             className={`${styles.message} ${
-              messageData.isUserMessage && styles.userRadius
+              role === "user" && styles.userRadius
             }`}
           >
-            <p>{messageData.text}</p>
+            {loading && (
+              <div className={styles.typing}>
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            )}
+            {!loading && <p>{text}</p>}
           </div>
         </div>
       </div>

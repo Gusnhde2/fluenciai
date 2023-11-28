@@ -1,13 +1,15 @@
 interface ChatState {
-  chatId: string | null;
+  activeThreadId: string;
   mobileChatOpen: boolean;
   openModal: boolean;
+  errorMessage: string | null;
 }
 
 export const initialChatState = {
-  chatId: null,
+  activeThreadId: "",
   mobileChatOpen: false,
   openModal: false,
+  errorMessage: null,
 };
 
 export const chatReducer = (state: ChatState, action: any) => {
@@ -15,7 +17,7 @@ export const chatReducer = (state: ChatState, action: any) => {
     case "SET_CHAT_ID":
       return {
         ...state,
-        chatId: action.payload,
+        activeThreadId: action.payload,
       };
     case "MOBILE_CHAT_TOGGLE":
       return {
@@ -26,6 +28,11 @@ export const chatReducer = (state: ChatState, action: any) => {
       return {
         ...state,
         openModal: !state.openModal,
+      };
+    case "SET_ERROR_MESSAGE":
+      return {
+        ...state,
+        errorMessage: action.payload,
       };
     default:
       return state;

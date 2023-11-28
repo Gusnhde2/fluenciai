@@ -26,7 +26,6 @@ export default function CreateAssistant() {
     const lastname = lastnameRef.current?.value;
     const language = languageRef.current?.value;
     const sex = sexRef.current?.value;
-    console.log(name, lastname, name?.trim().length);
 
     if (name?.trim().length !== 0 && lastname?.trim().length !== 0) {
       try {
@@ -59,7 +58,7 @@ export default function CreateAssistant() {
   }
 
   return (
-    <Modal>
+    <Modal type="overlay">
       <form
         onSubmit={(event) => event?.preventDefault()}
         className={styles.container}
