@@ -16,7 +16,8 @@
   max-width: 60%;
 
   @media screen and (max-width: 768px) {
-    max-width: 100%;
+    width: 100%;
+    max-width: 100vw;
   }
 }
 
@@ -27,7 +28,9 @@
 .content {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  @media screen and (max-width: 768px) {
+    width: 100vw;
+  }
 }
 
 .userContent {
@@ -77,8 +80,8 @@
 .message {
   display: flex;
   justify-content: flex-start;
-  width: 100%;
   padding: 1rem 1.5rem;
+  /* max-width: 100vw; */
   border-radius: 0rem 0.875rem 0.875rem 0.875rem;
   border: 1px solid #323232;
   background: #292929;
