@@ -79,8 +79,10 @@ export default function CreateAssistant() {
         <div>
           <p>Select language</p>
           <select ref={languageRef}>
-            {languages.map((language: any) => (
-              <option value={language}>{language}</option>
+            {languages.map((language: any, index) => (
+              <option key={index} value={language}>
+                {language}
+              </option>
             ))}
           </select>
         </div>
