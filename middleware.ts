@@ -1,9 +1,7 @@
-import { NextRequest, NextResponse, userAgent } from "next/server";
+import { authMiddleware } from "@clerk/nextjs";
 
-export function middleware(request: NextRequest) {
-  const { device } = userAgent(request);
-  const viewport = device.type === "mobile" ? "mobile" : "desktop";
+export default authMiddleware();
 
-  request.nextUrl.searchParams.set("viewport", viewport);
-  return NextResponse.rewrite(request.nextUrl);
-}
+export const config = {
+  matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/(api|trpc)(.*)"],
+};

@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 
 import { useChatContext } from "@/context/ChatContext";
 import { initialChatState } from "@/context/chatReducer";
@@ -8,12 +8,16 @@ import MenuIcon from "@/public/menu.svg";
 import ChatIcon from "@/public/message.svg";
 
 import styles from "./navbar.module.css";
+import { useAuth, useUser } from "@clerk/nextjs";
 
 export default function Navbar({ data }: { data?: any }) {
   const [openMenu, setOpenMenu] = useState(false);
   const [activeChat, setActiveChat] = useState(data?.[0]);
   const chatContext = useChatContext();
   const { state = initialChatState, dispatch = () => {} } = chatContext || {};
+
+  const auth = useAuth();
+  console.log(auth);
 
   // useEffect(() => {
   //   const chat = data.filter((data: any) => data.id === state?.chatId).slice(0);
@@ -53,7 +57,7 @@ export default function Navbar({ data }: { data?: any }) {
           >
             <button>Profile</button>
             <button>Settings</button>
-            <button>Logout</button>
+            <button onClick={() => auth.signOut()}>Logout</button>
           </div>
         )}
       </div>
