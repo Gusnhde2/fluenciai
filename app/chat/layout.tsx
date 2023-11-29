@@ -47,11 +47,13 @@ const mockData = [
 export default function Layout(props: {
   params: any;
   children: React.ReactNode;
-  modal: React.ReactNode;
+  assistant: React.ReactNode;
   error: React.ReactNode;
+  profile: React.ReactNode;
 }) {
   const chatContext = useChatContext();
   const { state } = chatContext || {};
+  console.log(state);
 
   useEffect(() => {
     console.log(state);
@@ -62,7 +64,8 @@ export default function Layout(props: {
       <Navbar data={mockData} />
       <MobileChats data={mockData} />
       <Sidebar data={mockData} />
-      {state?.openModal && props.modal}
+      {state?.openProfile && props.profile}
+      {state?.openAssistant && props.assistant}
       {state?.errorMessage && props.error}
       {props.children}
     </>

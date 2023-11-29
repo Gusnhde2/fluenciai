@@ -11,7 +11,8 @@ import { chatReducer, initialChatState } from "./chatReducer";
 interface ChatState {
   activeThreadId: string;
   mobileChatOpen: boolean;
-  openModal: boolean;
+  openAssistant: boolean;
+  openProfile: boolean;
   errorMessage: string | null;
 }
 

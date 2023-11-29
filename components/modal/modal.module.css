@@ -10,14 +10,14 @@
   padding-top: 5rem;
 
   @media screen and (min-width: 768px) {
-    padding-top: 15rem;
+    padding-top: 10rem;
   }
 }
 
 .modalContent {
-  z-index: 9999;
-  width: 50%;
   height: fit-content;
+  max-height: calc(100vh - 10rem);
+  overflow-y: scroll;
   background-color: #fff;
   border-radius: 0.5rem;
   padding: 1rem;
@@ -30,8 +30,8 @@
   }
 
   @media screen and (max-width: 768px) {
-    width: 85%;
-    height: 85%;
+    width: 95%;
+    max-height: calc(100vh - 5rem);
   }
 }
 

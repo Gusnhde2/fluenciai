@@ -9,6 +9,7 @@ import ChatIcon from "@/public/message.svg";
 
 import styles from "./navbar.module.css";
 import { useAuth, useUser } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
 
 export default function Navbar({ data }: { data?: any }) {
   const [openMenu, setOpenMenu] = useState(false);
@@ -17,6 +18,7 @@ export default function Navbar({ data }: { data?: any }) {
   const { state = initialChatState, dispatch = () => {} } = chatContext || {};
 
   const auth = useAuth();
+  const router = useRouter();
   console.log(auth);
 
   // useEffect(() => {
@@ -55,9 +57,18 @@ export default function Navbar({ data }: { data?: any }) {
               !openMenu && styles.close
             }`}
           >
-            <button>Profile</button>
+            <button onClick={() => dispatch({ type: "TOGGLE_PROFILE_MODAL" })}>
+              Profile
+            </button>
             <button>Settings</button>
-            <button onClick={() => auth.signOut()}>Logout</button>
+            <button
+              onClick={() => {
+                auth.signOut();
+                router.push("/");
+              }}
+            >
+              Logout
+            </button>
           </div>
         )}
       </div>

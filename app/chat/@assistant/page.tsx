@@ -49,7 +49,7 @@ export default function CreateAssistant() {
         setLoading(false);
       } finally {
         setLoading(false);
-        dispatch && dispatch({ type: "TOGGLE_MODAL" });
+        dispatch && dispatch({ type: "TOGGLE_ASSISTANT_MODAL" });
       }
     } else {
       setLoading(false);
@@ -58,7 +58,7 @@ export default function CreateAssistant() {
   }
 
   return (
-    <Modal type="overlay">
+    <Modal type="assistant">
       <form
         onSubmit={(event) => event?.preventDefault()}
         className={styles.container}

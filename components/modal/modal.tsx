@@ -16,10 +16,30 @@ export default function Modal({
 
   const closeModalOverlay = (e: React.MouseEvent<HTMLDivElement>) => {
     const target = e.target as HTMLDivElement;
-    if (type === "error") {
-      dispatch && dispatch({ type: "SET_ERROR_MESSAGE", payload: null });
-    } else if (target.id === "overlay") {
-      dispatch && dispatch({ type: "TOGGLE_MODAL" });
+    if (target.id === "overlay") {
+      switch (type) {
+        case "error":
+          dispatch && dispatch({ type: "SET_ERROR_MESSAGE", payload: null });
+          break;
+        case "assistant":
+          dispatch && dispatch({ type: "TOGGLE_ASSISTANT_MODAL" });
+          break;
+        case "profile":
+          dispatch && dispatch({ type: "TOGGLE_PROFILE_MODAL" });
+          break;
+      }
+    } else if (target.id === "closeButton") {
+      switch (type) {
+        case "error":
+          dispatch && dispatch({ type: "SET_ERROR_MESSAGE", payload: null });
+          break;
+        case "assistant":
+          dispatch && dispatch({ type: "TOGGLE_ASSISTANT_MODAL" });
+          break;
+        case "profile":
+          dispatch && dispatch({ type: "TOGGLE_PROFILE_MODAL" });
+          break;
+      }
     }
   };
   return (
@@ -31,6 +51,7 @@ export default function Modal({
       <div className={styles.modalContent}>
         <button
           className={styles.closeButton}
+          id="closeButton"
           onClick={() => dispatch && dispatch({ type: "TOGGLE_MODAL" })}
         >
           Close

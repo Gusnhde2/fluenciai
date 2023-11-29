@@ -5,6 +5,7 @@ import Image from "next/image";
 import React from "react";
 import styles from "./message.module.css";
 import Logo from "@/public/logo.svg";
+import { useUser } from "@clerk/nextjs";
 
 interface MessageProps {
   text?: string;
@@ -29,6 +30,7 @@ export default function Message({
   profilePic,
   loading,
 }: MessageProps) {
+  const user = useUser();
   return (
     <div
       className={`${styles.messageWrapper} ${
@@ -41,7 +43,12 @@ export default function Message({
         }`}
       >
         <div className={styles.image}>
-          <Image src={Logo} alt="profile" />
+          <Image
+            src={role === "assistant" ? Logo : user.user?.imageUrl}
+            alt="profile"
+            width={60}
+            height={60}
+          />
         </div>
         <div
           className={`${styles.content} ${
@@ -53,7 +60,7 @@ export default function Message({
               role === "user" && styles.messageUser
             } `}
           >
-            <h3>{userName}</h3>
+            <h3>{role === "assistant" ? userName : user.user?.firstName}</h3>
             <p>
               {created_at && formatDate(new Date(created_at * 1000).getTime())}
             </p>
