@@ -15,10 +15,10 @@ export default function Navbar({ data }: { data?: any }) {
   const chatContext = useChatContext();
   const { state = initialChatState, dispatch = () => {} } = chatContext || {};
 
-  useEffect(() => {
-    const chat = data.filter((data: any) => data.id === state?.chatId).slice(0);
-    setActiveChat(chat?.[0]);
-  }, [state]);
+  // useEffect(() => {
+  //   const chat = data.filter((data: any) => data.id === state?.chatId).slice(0);
+  //   setActiveChat(chat?.[0]);
+  // }, [state]);
 
   const openMenuHandler = () => {
     setOpenMenu(!openMenu);
