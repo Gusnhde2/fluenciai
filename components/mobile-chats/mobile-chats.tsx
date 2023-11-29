@@ -50,10 +50,16 @@ export default function MobileChats({ data }: { data?: Array<any> }) {
               id={data.id}
               key={index}
               data={data}
-              // isActive={data.id === state?.chatId}
+              isActive={data.threadId === state?.activeThreadId}
               index={index}
               onClick={() => {
-                dispatch({ type: "SET_CHAT_ID", payload: data?.id });
+                dispatch({
+                  type: "SET_CHAT_ID",
+                  payload: {
+                    threadId: data?.threadId,
+                    assistantId: data?.assistantId,
+                  },
+                });
                 dispatch({ type: "MOBILE_CHAT_TOGGLE", payload: false });
               }}
             />

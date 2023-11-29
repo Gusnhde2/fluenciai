@@ -52,10 +52,16 @@ export default function Sidebar({ data }: { data?: Array<any> }) {
               <ChatCard
                 key={index}
                 data={data}
-                // isActive={data.id === state?.chatId}
+                isActive={data.threadId === state?.activeThreadId}
                 index={index}
                 onClick={() =>
-                  dispatch({ type: "SET_CHAT_ID", payload: data?.id })
+                  dispatch({
+                    type: "SET_CHAT_ID",
+                    payload: {
+                      threadId: data?.threadId,
+                      assistantId: data?.assistantId,
+                    },
+                  })
                 }
               />
             ))}

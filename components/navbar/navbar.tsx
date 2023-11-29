@@ -19,12 +19,13 @@ export default function Navbar({ data }: { data?: any }) {
 
   const auth = useAuth();
   const router = useRouter();
-  console.log(auth);
 
-  // useEffect(() => {
-  //   const chat = data.filter((data: any) => data.id === state?.chatId).slice(0);
-  //   setActiveChat(chat?.[0]);
-  // }, [state]);
+  useEffect(() => {
+    const chat = data
+      .filter((data: any) => data.threadId === state?.activeThreadId)
+      .slice(0);
+    setActiveChat(chat?.[0]);
+  }, [state]);
 
   const openMenuHandler = () => {
     setOpenMenu(!openMenu);
@@ -36,7 +37,9 @@ export default function Navbar({ data }: { data?: any }) {
           <Image src="/logo.svg" alt="FluenciAI Logo" width={60} height={60} />
         </div>
         <div className={styles.username}>
-          <h4>{activeChat?.name}</h4>
+          <h4>
+            {activeChat?.name} {activeChat?.lastname}
+          </h4>
           <span>Online</span>
         </div>
       </div>

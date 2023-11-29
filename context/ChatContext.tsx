@@ -9,11 +9,13 @@ import {
 import { chatReducer, initialChatState } from "./chatReducer";
 
 interface ChatState {
+  activeAssistantId: string;
   activeThreadId: string;
   mobileChatOpen: boolean;
   openAssistant: boolean;
   openProfile: boolean;
   errorMessage: string | null;
+  newAssistantCreated: boolean;
 }
 
 interface ChatContextType {

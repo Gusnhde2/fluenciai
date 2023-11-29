@@ -1,17 +1,21 @@
 interface ChatState {
+  activeAssistantId: string;
   activeThreadId: string;
   mobileChatOpen: boolean;
   openAssistant: boolean;
   openProfile: boolean;
   errorMessage: string | null;
+  newAssistantCreated: boolean;
 }
 
 export const initialChatState = {
+  activeAssistantId: "",
   activeThreadId: "",
   mobileChatOpen: false,
   openAssistant: false,
   openProfile: false,
   errorMessage: null,
+  newAssistantCreated: false,
 };
 
 export const chatReducer = (state: ChatState, action: any) => {
@@ -19,7 +23,8 @@ export const chatReducer = (state: ChatState, action: any) => {
     case "SET_CHAT_ID":
       return {
         ...state,
-        activeThreadId: action.payload,
+        activeThreadId: action.payload.threadId,
+        activeAssistantId: action.payload.assistantId,
       };
     case "MOBILE_CHAT_TOGGLE":
       return {
@@ -40,6 +45,11 @@ export const chatReducer = (state: ChatState, action: any) => {
       return {
         ...state,
         errorMessage: action.payload,
+      };
+    case "NEW_ASSISTANT_CREATED":
+      return {
+        ...state,
+        newAssistantCreated: action.payload,
       };
     default:
       return state;

@@ -1,48 +1,24 @@
 "use client";
-import { useEffect } from "react";
+import { use, useEffect, useState } from "react";
 
 import MobileChats from "@/components/mobile-chats/mobile-chats";
 import Navbar from "@/components/navbar/navbar";
 import Sidebar from "@/components/sidebar/sidebar";
 import { useChatContext } from "@/context/ChatContext";
 
-const mockData = [
-  {
-    id: 1123,
-    name: "John Doe",
-    lastMessageDate: Date.now() - 86400000, // 1 day ago
-    lastMessage: "Hey, how's it going?",
-    //   profilePicture: "john_doe.jpg",
-  },
-  {
-    id: 212312,
-    name: "Jane Smith",
-    lastMessageDate: Date.now() - 3600000, // 1 hour ago
-    lastMessage: "I have a question for you.",
-    //   profilePicture: "jane_smith.jpg",
-  },
-  {
-    id: 312312,
-    name: "Alex Johnson",
-    lastMessageDate: Date.now() - 172800000, // 2 days ago
-    lastMessage: "Lorem ipsum dolor sit amet.",
-    //   profilePicture: "alex_johnson.jpg",
-  },
-  {
-    id: 41232,
-    name: "Emily Brown",
-    lastMessageDate: Date.now() - 259200000, // 3 days ago
-    lastMessage: "Let's catch up soon!",
-    //   profilePicture: "emily_brown.jpg",
-  },
-  {
-    id: 5123123,
-    name: "Michael Lee",
-    lastMessageDate: Date.now() - 614800000, // 1 week ago
-    lastMessage: "How about grabbing lunch tomorrow?",
-    //   profilePicture: "michael_lee.jpg",
-  },
-];
+const getAssistants = async () => {
+  try {
+    const response = await fetch("api/assistants", {
+      method: "GET",
+    });
+    if (response.ok) {
+      const data = await response.json();
+      return data;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 export default function Layout(props: {
   params: any;
@@ -52,18 +28,31 @@ export default function Layout(props: {
   profile: React.ReactNode;
 }) {
   const chatContext = useChatContext();
-  const { state } = chatContext || {};
-  console.log(state);
+  const { state, dispatch } = chatContext || {};
+  const [assistants, setAssistants] = useState<Array<object>>([]);
 
   useEffect(() => {
-    console.log(state);
-  }, [state]);
+    const data = getAssistants();
+    data.then((data) => {
+      setAssistants(data);
+    });
+  }, []);
+
+  useEffect(() => {
+    if (state?.newAssistantCreated) {
+      const data = getAssistants();
+      data.then((data) => {
+        setAssistants(data);
+        dispatch && dispatch({ type: "NEW_ASSISTANT_CREATED", payload: false });
+      });
+    }
+  }, [state?.newAssistantCreated]);
 
   return (
     <>
-      <Navbar data={mockData} />
-      <MobileChats data={mockData} />
-      <Sidebar data={mockData} />
+      <Navbar data={assistants} />
+      <MobileChats data={assistants} />
+      <Sidebar data={assistants} />
       {state?.openProfile && props.profile}
       {state?.openAssistant && props.assistant}
       {state?.errorMessage && props.error}

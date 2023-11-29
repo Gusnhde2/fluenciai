@@ -8,6 +8,7 @@ import { formatDate } from "@/helpers/format-date";
 
 interface ChatCardData {
   name?: string;
+  lastname?: string;
   lastMessageDate?: number;
   lastMessage?: string;
   profilePicture?: string;
@@ -44,7 +45,15 @@ export default function ChatCard({
         </div>
         <div className={styles.cardContent}>
           <div>
-            <h4>{isActive ? <b>{data?.name}</b> : data?.name}</h4>
+            <h4>
+              {isActive ? (
+                <b>
+                  {data?.name} {data?.lastname}
+                </b>
+              ) : (
+                `${data?.name} ${data?.lastname}`
+              )}
+            </h4>
             <span>{data?.lastMessage}</span>
           </div>
           {<p>{formatDate(data?.lastMessageDate ?? 0)}</p>}

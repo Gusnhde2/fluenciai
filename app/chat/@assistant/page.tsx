@@ -40,8 +40,7 @@ export default function CreateAssistant() {
         });
         if (response.ok) {
           const data = await response.json();
-          console.log(data);
-
+          //toast success
           router.refresh();
         }
       } catch (error) {
@@ -50,6 +49,7 @@ export default function CreateAssistant() {
       } finally {
         setLoading(false);
         dispatch && dispatch({ type: "TOGGLE_ASSISTANT_MODAL" });
+        dispatch && dispatch({ type: "NEW_ASSISTANT_CREATED", payload: true });
       }
     } else {
       setLoading(false);

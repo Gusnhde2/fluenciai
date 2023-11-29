@@ -1,3 +1,4 @@
+import { createAssistant, getAssistants } from "@/lib/assistants";
 import { NextRequest, NextResponse } from "next/server";
 import OpenAI from "openai";
 
@@ -19,11 +20,30 @@ export async function POST(req: NextRequest, res: NextResponse) {
     if (myAssistant) {
       const thread = await openai.beta.threads.create();
       if (thread) {
+        await createAssistant(
+          thread.id,
+          myAssistant.id,
+          name,
+          lastname,
+          sex,
+          language,
+          ""
+        );
         return NextResponse.json(thread);
       }
     }
   } catch (err) {
     console.error(err);
     return NextResponse.json("Error creating assistant");
+  }
+}
+
+export async function GET() {
+  try {
+    const assistants = await getAssistants();
+    return NextResponse.json(assistants);
+  } catch (err) {
+    console.error(err);
+    return NextResponse.json("Error getting assistants");
   }
 }

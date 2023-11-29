@@ -41,6 +41,7 @@ export default function Message({
         className={`${styles.messageContainer} ${
           role === "user" && styles.messageUser
         }`}
+        style={loading ? { maxWidth: "10rem" } : {}}
       >
         <div className={styles.image}>
           <Image
