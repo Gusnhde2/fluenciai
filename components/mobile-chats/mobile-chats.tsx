@@ -37,7 +37,7 @@ export default function MobileChats({ data }: { data?: Array<any> }) {
         </div>
         <Searchbar
           onclick={() => {
-            dispatch({ type: "TOGGLE_MODAL" });
+            dispatch({ type: "TOGGLE_ASSISTANT_MODAL" });
           }}
         />
         <div className={styles.subtitle}>
