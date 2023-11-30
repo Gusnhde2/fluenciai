@@ -8,29 +8,21 @@ export async function POST(req: NextRequest, res: NextResponse) {
   }
   const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
-  const { message, user } = await req.json();
+  const { message, user, threadId, assistantId } = await req.json();
 
   try {
-    const createMessage = await openai.beta.threads.messages.create(
-      "thread_wDYrbxdN0lwzTDZYadVB1GmF",
-      {
-        role: "user",
-        content: message,
-      }
-    );
+    const createMessage = await openai.beta.threads.messages.create(threadId, {
+      role: "user",
+      content: message,
+    });
 
     if (createMessage) {
       try {
-        const run = await openai.beta.threads.runs.create(
-          "thread_wDYrbxdN0lwzTDZYadVB1GmF",
-          {
-            assistant_id: "asst_XQT5wglurAxBlQK5d9tx9tWU",
-          }
-        );
+        const run = await openai.beta.threads.runs.create(threadId, {
+          assistant_id: assistantId,
+        });
         if (run) {
-          const messages = await openai.beta.threads.messages.list(
-            "thread_wDYrbxdN0lwzTDZYadVB1GmF"
-          );
+          const messages = await openai.beta.threads.messages.list(threadId);
           return NextResponse.json({
             message: messages.data[0],
             run_id: run.id,

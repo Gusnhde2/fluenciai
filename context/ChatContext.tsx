@@ -16,6 +16,9 @@ interface ChatState {
   openProfile: boolean;
   errorMessage: string | null;
   newAssistantCreated: boolean;
+  assistantsLoaded: boolean;
+  assistantName: string;
+  assistantLastname: string;
 }
 
 interface ChatContextType {

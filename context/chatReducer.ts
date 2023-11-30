@@ -6,6 +6,9 @@ interface ChatState {
   openProfile: boolean;
   errorMessage: string | null;
   newAssistantCreated: boolean;
+  assistantsLoaded: boolean;
+  assistantName: string;
+  assistantLastname: string;
 }
 
 export const initialChatState = {
@@ -16,6 +19,9 @@ export const initialChatState = {
   openProfile: false,
   errorMessage: null,
   newAssistantCreated: false,
+  assistantsLoaded: false,
+  assistantName: "",
+  assistantLastname: "",
 };
 
 export const chatReducer = (state: ChatState, action: any) => {
@@ -51,6 +57,18 @@ export const chatReducer = (state: ChatState, action: any) => {
         ...state,
         newAssistantCreated: action.payload,
       };
+    case "ASSISTANTS_LOADED":
+      return {
+        ...state,
+        assistantsLoaded: action.payload,
+      };
+    case "SET_ASSISTANT_NAME":
+      return {
+        ...state,
+        assistantName: action.payload.name,
+        assistantLastname: action.payload.lastname,
+      };
+
     default:
       return state;
   }

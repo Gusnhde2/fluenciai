@@ -1,6 +1,5 @@
 "use client";
 import Image from "next/image";
-import { useState } from "react";
 
 import VoiceIcon from "@/public/voice.svg";
 
@@ -22,6 +21,7 @@ export default function MessageInput({
         type="text"
         placeholder={"Type message..."}
         onChange={inputHandler}
+        value={inputValue}
       />
       <div>
         <Image src={VoiceIcon} alt="Voice Icon" width={30} height={30} />

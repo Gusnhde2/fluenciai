@@ -1,12 +1,13 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { useState, useRef } from "react";
+import { useRef, useState } from "react";
 
 import Button from "@/components/button/button";
 import Modal from "@/components/modal/modal";
 import { useChatContext } from "@/context/ChatContext";
-import { languages } from "./constatnts";
+import { useUser } from "@clerk/nextjs";
 
+import { languages } from "./constatnts";
 import styles from "./create-assistant.module.css";
 
 export default function CreateAssistant() {
@@ -14,6 +15,8 @@ export default function CreateAssistant() {
   const router = useRouter();
   const context = useChatContext();
   const { state, dispatch } = context || {};
+
+  const user = useUser();
 
   const nameRef = useRef<HTMLInputElement>(null);
   const lastnameRef = useRef<HTMLInputElement>(null);
@@ -36,6 +39,7 @@ export default function CreateAssistant() {
             lastname: lastname,
             language: language,
             sex: sex,
+            user: user.user?.firstName,
           }),
         });
         if (response.ok) {

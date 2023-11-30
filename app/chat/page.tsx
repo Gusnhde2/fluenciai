@@ -2,12 +2,12 @@
 
 import { useEffect, useState } from "react";
 
+import LoadingSpinner from "@/components/loading-spinner/loading-spinner";
 import MessageInput from "@/components/message-input/message-input";
 import Message from "@/components/message/message";
 import { useChatContext } from "@/context/ChatContext";
 
 import styles from "./chat.module.css";
-import LoadingSpinner from "@/components/loading-spinner/loading-spinner";
 
 export default function Chat(props: any) {
   const [userIsSending, setUserIsSending] = useState(false);
@@ -25,60 +25,71 @@ export default function Chat(props: any) {
   };
 
   const sendMessage = async () => {
-    setUserIsSending(true);
-    try {
-      const message = await fetch("/api/message", {
-        method: "POST",
-        body: JSON.stringify({
-          message: inputValue,
-          user: "Ahmed Elaguab",
-        }),
-      });
-      if (message.ok) {
-        const data = await message.json();
-        setMessages((prev) => [data.message, ...prev]);
-        setUserIsSending(false);
-        try {
-          setAssistantIsSending(true);
-          const response = await fetch("/api/threads", {
-            method: "POST",
-            body: JSON.stringify({
-              thread_id: data.thread_id,
-              run_id: data.run_id,
-            }),
-            headers: {
-              "Content-Type": "application/json",
-            },
-          });
-          if (response.ok) {
-            const data = await response.json();
-            setMessages((prev) => [data, ...prev]);
+    if (state?.assistantsLoaded) {
+      setUserIsSending(true);
+      try {
+        const message = await fetch("/api/message", {
+          method: "POST",
+          body: JSON.stringify({
+            message: inputValue,
+            threadId: state?.activeThreadId,
+            assistantId: state?.activeAssistantId,
+          }),
+        });
+        if (message.ok) {
+          const data = await message.json();
+          setMessages((prev) => [data.message, ...prev]);
+          setUserIsSending(false);
+          try {
+            setAssistantIsSending(true);
+            const response = await fetch("/api/threads", {
+              method: "POST",
+              body: JSON.stringify({
+                thread_id: data.thread_id,
+                run_id: data.run_id,
+              }),
+              headers: {
+                "Content-Type": "application/json",
+              },
+            });
+            if (response.ok) {
+              const data = await response.json();
+              setMessages((prev) => [data, ...prev]);
+              setAssistantIsSending(false);
+              setInputValue("");
+            }
+          } catch (error: any) {
+            dispatch &&
+              dispatch({
+                type: "SET_ERROR_MESSAGE",
+                payload: error.message,
+              });
             setAssistantIsSending(false);
           }
-        } catch (error: any) {
-          dispatch &&
-            dispatch({
-              type: "SET_ERROR_MESSAGE",
-              payload: error.message,
-            });
-          setAssistantIsSending(false);
         }
+      } catch (error: any) {
+        dispatch &&
+          dispatch({ type: "SET_ERROR_MESSAGE", payload: error.message });
+        setUserIsSending(false);
       }
-    } catch (error: any) {
+    } else {
       dispatch &&
-        dispatch({ type: "SET_ERROR_MESSAGE", payload: error.message });
-      setUserIsSending(false);
+        dispatch({
+          type: "SET_ERROR_MESSAGE",
+          payload: "Please create an assistant first to start chatting with.",
+        });
     }
   };
 
   useEffect(() => {
+    setMessages([]);
     const getMessages = async () => {
       setLoading(true);
       try {
         const response = await fetch("/api/all-messages", {
           method: "POST",
           body: JSON.stringify({
-            thread_id: "thread_wDYrbxdN0lwzTDZYadVB1GmF",
+            thread_id: state?.activeThreadId,
           }),
         });
         if (response.ok) {
@@ -95,8 +106,11 @@ export default function Chat(props: any) {
           });
       }
     };
-    getMessages();
-  }, []);
+
+    if (state?.assistantsLoaded) {
+      getMessages();
+    }
+  }, [state?.activeThreadId]);
 
   return (
     <>
@@ -122,6 +136,7 @@ export default function Chat(props: any) {
             role={message?.role}
             id={message?.id}
             created_at={message?.created_at}
+            userName={state?.assistantName}
           />
         ))}
       </div>

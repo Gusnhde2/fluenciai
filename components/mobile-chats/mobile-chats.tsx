@@ -60,6 +60,13 @@ export default function MobileChats({ data }: { data?: Array<any> }) {
                     assistantId: data?.assistantId,
                   },
                 });
+                dispatch({
+                  type: "SET_ASSISTANT_NAME",
+                  payload: {
+                    name: data.name,
+                    lastname: data.lastname,
+                  },
+                });
                 dispatch({ type: "MOBILE_CHAT_TOGGLE", payload: false });
               }}
             />

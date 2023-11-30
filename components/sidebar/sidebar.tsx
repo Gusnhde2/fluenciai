@@ -16,10 +16,6 @@ export default function Sidebar({ data }: { data?: Array<any> }) {
 
   const { state = initialChatState, dispatch = () => {} } = chatContext || {};
 
-  // useEffect(() => {
-  //   dispatch({ type: "SET_CHAT_ID", payload: data?.[0].id });
-  // }, []);
-
   return (
     <>
       <div className={styles.sidebar}>
@@ -54,15 +50,22 @@ export default function Sidebar({ data }: { data?: Array<any> }) {
                 data={data}
                 isActive={data.threadId === state?.activeThreadId}
                 index={index}
-                onClick={() =>
+                onClick={() => {
                   dispatch({
                     type: "SET_CHAT_ID",
                     payload: {
                       threadId: data?.threadId,
                       assistantId: data?.assistantId,
                     },
-                  })
-                }
+                  });
+                  dispatch({
+                    type: "SET_ASSISTANT_NAME",
+                    payload: {
+                      name: data.name,
+                      lastname: data.lastname,
+                    },
+                  });
+                }}
               />
             ))}
           </div>
