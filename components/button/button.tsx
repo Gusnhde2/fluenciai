@@ -1,10 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import styles from "./button.module.css";
+
 import addIcon from "@/public/add.svg";
 import sendIcon from "@/public/send.svg";
+
 import LoadingSpinner from "../loading-spinner/loading-spinner";
+import styles from "./button.module.css";
 
 interface ButtonProps {
   disabled?: boolean;
@@ -27,7 +29,7 @@ export default function Button({
       onClick={onClick}
       disabled={disabled || false}
     >
-      {!loading && text}
+      {!loading && type !== "send" && text}
       {!loading && type === "add" && (
         <Image src={addIcon} alt="Add" width={27} height={27} />
       )}

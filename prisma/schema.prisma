@@ -50,4 +50,6 @@ model Assistant {
   language String
   picture  String
   authId   String
+  lastSeen DateTime
+  lastMessage String
 }

@@ -28,6 +28,7 @@ export default function Chat(props: any) {
     if (state?.assistantsLoaded) {
       setUserIsSending(true);
       try {
+        setInputValue("");
         const message = await fetch("/api/message", {
           method: "POST",
           body: JSON.stringify({
@@ -40,6 +41,7 @@ export default function Chat(props: any) {
           const data = await message.json();
           setMessages((prev) => [data.message, ...prev]);
           setUserIsSending(false);
+
           try {
             setAssistantIsSending(true);
             const response = await fetch("/api/threads", {
@@ -47,6 +49,7 @@ export default function Chat(props: any) {
               body: JSON.stringify({
                 thread_id: data.thread_id,
                 run_id: data.run_id,
+                assistant_id: state?.activeAssistantId,
               }),
               headers: {
                 "Content-Type": "application/json",
@@ -56,7 +59,6 @@ export default function Chat(props: any) {
               const data = await response.json();
               setMessages((prev) => [data, ...prev]);
               setAssistantIsSending(false);
-              setInputValue("");
             }
           } catch (error: any) {
             dispatch &&
@@ -107,10 +109,10 @@ export default function Chat(props: any) {
       }
     };
 
-    if (state?.assistantsLoaded) {
+    if (state?.assistantsLoaded && state?.activeThreadId !== "") {
       getMessages();
     }
-  }, [state?.activeThreadId]);
+  }, [state?.activeThreadId, state?.assistantsLoaded]);
 
   return (
     <>

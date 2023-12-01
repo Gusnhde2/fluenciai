@@ -1,15 +1,15 @@
 "use client";
 
 import Image from "next/image";
-import styles from "./chat-card.module.css";
-import { useState } from "react";
-import { on } from "events";
+
 import { formatDate } from "@/helpers/format-date";
+
+import styles from "./chat-card.module.css";
 
 interface ChatCardData {
   name?: string;
   lastname?: string;
-  lastMessageDate?: number;
+  lastSeen?: number;
   lastMessage?: string;
   profilePicture?: string;
 }
@@ -56,7 +56,7 @@ export default function ChatCard({
             </h4>
             <span>{data?.lastMessage}</span>
           </div>
-          {<p>{formatDate(data?.lastMessageDate ?? 0)}</p>}
+          {<p>{formatDate(data?.lastSeen || 0)}</p>}
         </div>
       </div>
     </button>

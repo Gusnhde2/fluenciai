@@ -14,6 +14,15 @@
   font-style: normal;
   font-weight: 500;
   line-height: normal;
+
+  @media screen and (max-width: 768px) {
+    padding: 0.5rem;
+    font-size: 1rem;
+  }
+}
+
+.button:disabled {
+  background: #33353686;
 }
 
 .button:hover {

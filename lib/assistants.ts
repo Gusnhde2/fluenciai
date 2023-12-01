@@ -1,4 +1,5 @@
 import { auth } from "@clerk/nextjs";
+
 import prisma from "./prismadb";
 
 export async function createAssistant(
@@ -24,6 +25,8 @@ export async function createAssistant(
       picture,
       authId: userId,
       threadId,
+      lastMessage: "",
+      lastSeen: new Date(Date.now() - 1000 * 60 * 60 * 24 * 7),
     },
   });
 }
@@ -37,4 +40,22 @@ export async function getAssistants() {
     },
   });
   return assistants;
+}
+
+export async function updateAssistant(
+  assistantId: string,
+  lastMessage: string,
+  lastSeen: Date
+) {
+  const { userId } = auth();
+  if (!userId) return;
+  await prisma.assistant.update({
+    where: {
+      assistantId,
+    },
+    data: {
+      lastMessage,
+      lastSeen,
+    },
+  });
 }

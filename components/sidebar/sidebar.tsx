@@ -1,15 +1,13 @@
 "use client";
 import Image from "next/image";
-import { useEffect, useState } from "react";
 
+import { useChatContext } from "@/context/ChatContext";
+import { initialChatState } from "@/context/chatReducer";
 import MessageIcon from "@/public/message.svg";
 
 import Searchbar from "../searchbar/searchbar";
 import ChatCard from "./chat-card/chat-card";
 import styles from "./sidebar.module.css";
-import { useChatContext } from "@/context/ChatContext";
-import Modal from "../modal/modal";
-import { initialChatState } from "@/context/chatReducer";
 
 export default function Sidebar({ data }: { data?: Array<any> }) {
   const chatContext = useChatContext();

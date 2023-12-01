@@ -1,8 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { OpenAI } from "openai";
 
+import { updateAssistant } from "@/lib/assistants";
+
 export async function POST(req: NextRequest, res: NextResponse) {
-  const { thread_id, run_id } = await req.json();
+  const { thread_id, run_id, assistant_id } = await req.json();
   try {
     const apiKey = process.env.OPENAI_API_KEY;
 
@@ -28,6 +30,14 @@ export async function POST(req: NextRequest, res: NextResponse) {
     }
     if (status === "completed") {
       const messages = await openai.beta.threads.messages.list(thread_id);
+      const messageContent = messages.data[0].content[0];
+      if ("text" in messageContent) {
+        const text =
+          messageContent?.text.value.length > 30
+            ? messageContent?.text.value.slice(0, 30) + "..."
+            : messageContent?.text.value;
+        await updateAssistant(assistant_id, text || "", new Date(Date.now()));
+      }
       return NextResponse.json(messages.data[0]);
     }
   } catch (err) {

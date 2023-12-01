@@ -1,10 +1,11 @@
 "use client";
-import { use, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import MobileChats from "@/components/mobile-chats/mobile-chats";
 import Navbar from "@/components/navbar/navbar";
 import Sidebar from "@/components/sidebar/sidebar";
 import { useChatContext } from "@/context/ChatContext";
+import { useAuth } from "@clerk/nextjs";
 
 const getAssistants = async () => {
   try {
@@ -36,14 +37,19 @@ export default function Layout(props: {
   const { state, dispatch } = chatContext || {};
   const [assistants, setAssistants] = useState<Array<object>>([]);
   const [activeAssistant, setActiveAssistant] = useState<any>({});
+  const user = useAuth();
 
   useEffect(() => {
-    dispatch && dispatch({ type: "ASSISTANTS_LOADED", payload: true });
+    if (assistants.length > 0) {
+      dispatch && dispatch({ type: "ASSISTANTS_LOADED", payload: true });
+    }
   }, [assistants]);
 
   useEffect(() => {
+    const userId = localStorage.getItem("userId");
     const assistantId = window.localStorage.getItem("activeAssistant");
     const threadId = localStorage.getItem("activeThread");
+
     dispatch &&
       dispatch({
         type: "SET_CHAT_ID",
@@ -55,7 +61,10 @@ export default function Layout(props: {
     if (data) {
       data.then((data) => {
         setAssistants(data);
-        const assistant = getActiveChat(data, threadId || "");
+        const assistant = getActiveChat(
+          data,
+          userId === user.userId ? threadId : data[0].threadId
+        );
         setActiveAssistant(getActiveChat(data, assistant[0]));
         dispatch &&
           dispatch({
@@ -73,20 +82,13 @@ export default function Layout(props: {
 
   useEffect(() => {
     if (!initalRender.current) {
+      window.localStorage.setItem("userId", user.userId || "");
       window.localStorage.setItem("activeThread", state?.activeThreadId || "");
       window.localStorage.setItem(
         "activeAssistant",
         state?.activeAssistantId || ""
       );
     }
-
-    // const assistant = getActiveChat(assistants, state?.activeThreadId || "");
-
-    // console.log(assistant);
-    // setActiveAssistant(assistant[0]);
-    // dispatch &&
-    //   dispatch({ type: "SET_ASSISTANT_NAME", payload: assistant[0].name });
-
     initalRender.current = false;
   }, [state?.activeThreadId]);
 

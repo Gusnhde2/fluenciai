@@ -61,14 +61,26 @@ export default function Navbar({ data }: { data?: any }) {
               !openMenu && styles.close
             }`}
           >
-            <button onClick={() => dispatch({ type: "TOGGLE_PROFILE_MODAL" })}>
+            <button
+              onClick={() => {
+                dispatch({ type: "TOGGLE_PROFILE_MODAL" });
+                setOpenMenu(false);
+              }}
+            >
               Profile
             </button>
-            <button>Settings</button>
+            <button
+              onClick={() => {
+                setOpenMenu(false);
+              }}
+            >
+              Settings
+            </button>
             <button
               onClick={() => {
                 auth.signOut();
-                router.push("/");
+                router.back();
+                setOpenMenu(false);
               }}
             >
               Logout

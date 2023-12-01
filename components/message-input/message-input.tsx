@@ -1,7 +1,4 @@
 "use client";
-import Image from "next/image";
-
-import VoiceIcon from "@/public/voice.svg";
 
 import Button from "../button/button";
 import styles from "./message-input.module.css";
@@ -24,7 +21,6 @@ export default function MessageInput({
         value={inputValue}
       />
       <div>
-        <Image src={VoiceIcon} alt="Voice Icon" width={30} height={30} />
         <Button
           disabled={inputValue === ""}
           type="send"
